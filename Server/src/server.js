@@ -24,6 +24,47 @@ app.get('/items', async (req, res) => {
     res.status(500).json({message:"Failed to retrieve items."})
   }
 })
+//--------------------------------------------------
+app.get('/item/:id', async (req, res) => {
+  const {id} = req.params
+  try{
+  const item = await knex('item')
+  .select("*")
+  .where('item.id', id)
+
+  res.status(200).json(item)
+  }catch(err){
+    res.status(500).json({message:"Failed to retrieve item."})
+  }
+})
+
+//All Post Requests
+app.post('/register/createUser', async (req, res) => {
+  const {last_name, first_name, username, password } = req.body;
+  const hashedPass = await bcrypt.hashSync(password, 10)
+  console.log(last_name, first_name, username, password)
+  try {
+    const newUser = {
+      first_name: first_name,
+      last_name: last_name,
+      username: username,
+      password : hashedPass,
+    };
+
+    let addedUser = await knex('users')
+      .insert(newUser)
+      .returning('*');
+
+    addedUser = addedUser.map(user => {
+      delete user.Password;
+      return user;
+    });
+
+    res.status(201).json(addedUser);
+  } catch (err) {
+    res.status(500).json({ message: "Error adding new user" });
+  }
+});
 
 app.listen(port, () => {
   console.log('Express Server Is Up & Running!')

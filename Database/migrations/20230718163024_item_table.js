@@ -5,11 +5,11 @@
 exports.up = function(knex) {
   return knex.schema.createTable('item', table => {
     table.increments()
-    table.integer('UserId');
-    table.foreign('UserId').references('users.id');
-    table.string('Item_Name');
-    table.string('Description', 3000);
-    table.integer('Quantity');
+    table.integer('userid');
+    table.foreign('userid').references('users.id');
+    table.string('item_name');
+    table.string('description', 3000);
+    table.integer('quantity');
   })
 };
 
@@ -19,7 +19,7 @@ exports.up = function(knex) {
  */
 exports.down = function(knex) {
   return knex.schema.alterTable('item', table => {
-    table.dropForeign('UserId');
+    table.dropForeign('userid');
   })
   .then(function() {
     return knex.schema.dropTableIfExists('item')
