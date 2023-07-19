@@ -12,7 +12,6 @@ export default function Visitor({items}){
     try{
       if(items.length >= 1){
         setLoading(false)
-        console.log(items)
       }
     }catch{
       setLoading(true)
@@ -25,7 +24,7 @@ export default function Visitor({items}){
   return (
     <Routes>
       <Route path='/' element={<ListBuilder items={items}/>}/>
-      <Route path='item/:item/:id' element={<SelectedItem/>}/>
+      <Route path=':item/:id' element={<SelectedItem/>}/>
     </Routes>
   )
 }

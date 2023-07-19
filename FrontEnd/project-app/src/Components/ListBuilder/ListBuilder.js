@@ -4,7 +4,6 @@ import LoadingScreen from '../Spinner/Spinner.js'
 
 export default function ListBuilder({items}){
   const Navigate = useNavigate();
-  console.log(items)
 
 
 if(items.length < 1){

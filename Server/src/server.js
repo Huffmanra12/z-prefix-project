@@ -39,6 +39,7 @@ app.get('/item/:id', async (req, res) => {
 })
 
 //All Post Requests
+//-------------------------------------------------------------------------
 app.post('/register/createUser', async (req, res) => {
   const {last_name, first_name, username, password } = req.body;
   const hashedPass = await bcrypt.hashSync(password, 10)
@@ -65,6 +66,33 @@ app.post('/register/createUser', async (req, res) => {
     res.status(500).json({ message: "Error adding new user" });
   }
 });
+
+//--------------------------------------------------------------------------------
+app.post('/login', async (req, res) => {
+  const {username, password} = req.body
+  console.log(username, password)
+
+  try{
+    const user = await knex('users')
+    .select('id', 'username', 'password')
+    .where('username', username)
+    .first()
+
+    if(user){
+      const isPasswordValid = bcrypt.compareSync(password, user.password);
+
+      if(isPasswordValid){
+        res.status(201).json({id: user.id, username: user.username, token: 8675309})
+      }else{
+        res.status(401).json({id: ''})
+      }
+    }else{
+      res.status(401).json({id:''})
+    }
+  }catch(err){
+    res.status(500).json({message: "Failed to find user."})
+  }
+})
 
 app.listen(port, () => {
   console.log('Express Server Is Up & Running!')

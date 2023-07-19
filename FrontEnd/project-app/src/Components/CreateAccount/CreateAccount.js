@@ -41,68 +41,68 @@ export default function CreateAccount({setIsOpenModal, setIsOpenModal2}){
 };
 
 return (
-<div className="flex justify-center z-50 fixed insert-0 w-full h-full bg-opacity-80 bg-zinc-200">
+<div className="flex justify-center items-center z-50 fixed insert-0 w-full h-full bg-opacity-80 bg-zinc-200">
   <Card className="flex flex-col items-center h-fit w-fit">
-  <h1 className="text-center">Create Account</h1>
-  {passCheck && <p className="text-center text-red-500">Passwords Must Match</p>}
-  <form onSubmit={handleSubmit} className="flex flex-col gap-4 mr-40 ml-40">
-      <div>
-          <Label htmlFor="first_name" value="First Name" />
-          <TextInput
-              id="first_name"
-              value={first_name}
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="First Name"
-              type="text"
-              required
-          />
-      </div>
-      <div>
-          <Label htmlFor="last_name" value="Last Name" />
-          <TextInput
-              id="last_name"
-              value={last_name}
-              onChange={(e) => setLastName(e.target.value)}
-              placeholder="Last Name"
-              type="text"
-              required
-          />
-      </div>
-      <div>
-          <Label htmlFor="username" value="Username" />
-          <TextInput
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Username"
-              type="text"
-              required
-          />
-      </div>
-      <div>
-          <Label htmlFor="password" value="Password" />
-          <TextInput
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              type="password"
-              required
-          />
-      </div>
-      <div>
-          <Label htmlFor="confPass" value="Confirm Password" />
-          <TextInput
-              id="confPass"
-              value={confPass}
-              onChange={(e) => setConfPass(e.target.value)}
-              placeholder="Confirm Password"
-              type="password"
-              required
-          />
-      </div>
-      <Button type="submit">Submit</Button>
-  </form>
+    <h1 className="text-center">Create Account</h1>
+    {passCheck && <p className="text-center text-red-500">Passwords Must Match</p>}
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 mr-40 ml-40">
+        <div>
+            <Label htmlFor="first_name" value="First Name" />
+            <TextInput
+                id="first_name"
+                value={first_name}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="First Name"
+                type="text"
+                required
+            />
+        </div>
+        <div>
+            <Label htmlFor="last_name" value="Last Name" />
+            <TextInput
+                id="last_name"
+                value={last_name}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Last Name"
+                type="text"
+                required
+            />
+        </div>
+        <div>
+            <Label htmlFor="username" value="Username" />
+            <TextInput
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+                type="text"
+                required
+            />
+        </div>
+        <div>
+            <Label htmlFor="password" value="Password" />
+            <TextInput
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                type="password"
+                required
+            />
+        </div>
+        <div>
+            <Label htmlFor="confPass" value="Confirm Password" />
+            <TextInput
+                id="confPass"
+                value={confPass}
+                onChange={(e) => setConfPass(e.target.value)}
+                placeholder="Confirm Password"
+                type="password"
+                required
+            />
+        </div>
+        <Button type="submit">Submit</Button>
+    </form>
 </Card>
 </div>
 )
