@@ -15,7 +15,7 @@
 Navigate to the z-prefix-project folder
 Navigate to the Database folder and run npm install, npx knex migrate:latest, and npx seed:run
 Navigate to the Server folder and run npm install then npm run
-Navigate to the Frontend folder the the project/app folder and run npm install and npm run
+Navigate to the Frontend folder then the project-app folder and run npm install and npm run
 
 
 -----Using the App------
