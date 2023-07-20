@@ -2,11 +2,20 @@
 
 ------Getting Started----------
 Clone the Repository to your local machine.
-Navigate to the parent folder containing the docker-compose.yaml file
-run docker-compose up
-wait for all containers to build
-open web browser and navigate to localhost:3000
-to view that the server is runnning navigate to localhost:8080
+create a new docker container
+  - run docker pull postgres
+  - mkdir -p $HOME/docker/volumes/postgres
+   - docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 \
+-v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres
+- run docker ps -a   to get the container id
+- run docker exec -it {container} bash
+- run psql -U postgres
+- create database inventory_database
+
+Navigate to the z-prefix-project folder
+Navigate to the Database folder and run npm install, npx knex migrate:latest, and npx seed:run
+Navigate to the Server folder and run npm install then npm run
+Navigate to the Frontend folder the the project/app folder and run npm install and npm run
 
 
 -----Using the App------
