@@ -17,6 +17,8 @@ export default function SelectedItem({reload, setReload}){
   const [quantity, setQuantity] = useState(0)
   const [isDisabled, setIsDisabled] = useState(true)
   const [userValidated, setUserValidated] = useState(false)
+  const [rows, setRows] = useState(1)
+
   const {id} = useParams();
   const Navigate = useNavigate()
 
@@ -52,8 +54,8 @@ export default function SelectedItem({reload, setReload}){
     }
     fetch(`http://localhost:8080/item/${id}`)
     .then(res => res.json())
-    .then(data => {setItemName(data[0].item_name); setItemDesc(data[0].description); setQuantity(data[0].quantity); setLoading(false);})
-  }, [])
+    .then(data => {setItemName(data[0].item_name); setItemDesc(data[0].description); setQuantity(data[0].quantity); setRows(Math.ceil(data[0].description.length / 90) || 1); setLoading(false);})
+  }, [reload])
 
   if(loading){
     return <LoadingScreen />
@@ -86,8 +88,8 @@ export default function SelectedItem({reload, setReload}){
             <textarea
               id="itemDesc"
               value={itemDesc}
-              rows="3"
-              className="w-1/2"
+              rows={rows}
+              className="w-3/4"
               onChange={(e) => setItemDesc(e.target.value)}
               disabled={isDisabled}
             />
@@ -103,7 +105,7 @@ export default function SelectedItem({reload, setReload}){
               disabled={isDisabled}
             />
           </div>
-          {!isDisabled && (<div className="flex justify-center"><Button className="w-fit" onClick={() => onSubmit()}>Submit</Button></div>)}
+          {!isDisabled && (<div className="flex justify-center"><Button className="w-fit" onClick={() => {onSubmit(); setReload(!reload)}}>Submit</Button></div>)}
         </Card>
       </div>
     )

@@ -42,7 +42,7 @@ function App() {
     return <LoadingScreen />
   }
   return (
-    <div className="App">
+    <div className="App bg-blue-50 h-screen">
       {isOpenModal && <CreateAccount setIsOpenModal={setIsOpenModal} setIsOpenModal2={setIsOpenModal2} />}
       {isOpenModal2 && <AccountCreated setIsOpenModal2={setIsOpenModal2}/>}
       {isOpenModal3 && <SignIn setIsOpenModal3={setIsOpenModal3} Navigate={Navigate}/>}
