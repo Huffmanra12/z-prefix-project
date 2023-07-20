@@ -43,7 +43,10 @@ export default function CreateAccount({setIsOpenModal, setIsOpenModal2}){
 return (
 <div className="flex justify-center items-center z-50 fixed insert-0 w-full h-full bg-opacity-80 bg-zinc-200">
   <Card className="flex flex-col items-center h-fit w-fit">
-    <h1 className="text-center">Create Account</h1>
+    <div className="flex">
+    <h1 className="flex w-full justify-center">Create Account</h1>
+    <p className="flex cursor-pointer" onClick={() => setIsOpenModal(false)}>X</p>
+    </div>
     {passCheck && <p className="text-center text-red-500">Passwords Must Match</p>}
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 mr-40 ml-40">
         <div>

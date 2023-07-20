@@ -47,6 +47,7 @@ function App() {
       {isOpenModal2 && <AccountCreated setIsOpenModal2={setIsOpenModal2}/>}
       {isOpenModal3 && <SignIn setIsOpenModal3={setIsOpenModal3} Navigate={Navigate}/>}
       {!userValidated && (
+        <div>
         <Card >
         <div className="flex items-center justify-between">
           <h1 className="w-fit">Z-Prefix-Project</h1>
@@ -56,6 +57,11 @@ function App() {
         </div>
         </div>
       </Card>
+      <div className="flex justify-center mt-5">
+      <Button onClick={() => {setReload(!reload); Navigate('/')}}>Full Inventory</Button>
+      </div>
+      </div>
+
       )}
       {userValidated && (
         <>
@@ -64,7 +70,7 @@ function App() {
           <h1 className="w-fit">Z-Prefix-Project</h1>
           <h1>Greetings {user}</h1>
         <div className="flex  gap-10 w-fit">
-          <Button onClick={() => {Cookies.remove('token'); Cookies.remove('id'); Cookies.remove('username'); setUserValidated(false)}}>Sign-Out</Button>
+          <Button onClick={() => {Cookies.remove('token'); Cookies.remove('id'); Cookies.remove('username'); setUserValidated(false); Navigate('/')}}>Sign-Out</Button>
         </div>
         </div>
       </Card>

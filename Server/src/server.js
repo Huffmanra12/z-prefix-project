@@ -56,7 +56,7 @@ app.get('/users/items/:id', async (req, res) => {
 app.post('/register/createUser', async (req, res) => {
   const {last_name, first_name, username, password } = req.body;
   const hashedPass = await bcrypt.hashSync(password, 10)
-  console.log(last_name, first_name, username, password)
+
   try {
     const newUser = {
       first_name: first_name,
@@ -83,7 +83,7 @@ app.post('/register/createUser', async (req, res) => {
 //--------------------------------------------------------------------------------
 app.post('/login', async (req, res) => {
   const {username, password} = req.body
-  console.log(username, password)
+
 
   try{
     const user = await knex('users')
@@ -131,7 +131,7 @@ app.post('/item/add', async (req, res) => {
 app.patch('/item/update/:id', async (req, res) => {
   const {id} = req.params
   const {item_name, description, quantity} = req.body
-  console.log(id)
+
   try{
     const itemToUpdate = {}
 
@@ -149,7 +149,7 @@ app.patch('/item/update/:id', async (req, res) => {
     }
     res.status(200).json(updatedItem)
   }catch(err){
-    console.log(err)
+
     res.status(500).json({message: "Error updating item."})
   }
 

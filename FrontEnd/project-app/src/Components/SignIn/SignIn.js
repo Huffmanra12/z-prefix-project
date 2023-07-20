@@ -33,7 +33,10 @@ export default function SignIn({setIsOpenModal3, Navigate}){
   return(
   <div className="flex justify-center z-50 fixed insert-0 w-full h-full bg-opacity-80 bg-zinc-200">
     <Card className="flex flex-col mt-40 items-center h-fit w-fit">
-      <h1 className="text-center">Sign In</h1>
+      <div className="flex">
+      <h1 className="flex w-full justify-center">Sign In</h1>
+      <p className="flex cursor-pointer" onClick={() => setIsOpenModal3(false)}>X</p>
+      </div>
       <form onSubmit={handleSubmit}>
         <Label htmlFor="username" value="Username" />
         <TextInput
