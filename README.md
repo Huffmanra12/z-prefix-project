@@ -1,8 +1,8 @@
 # z-prefix-project
 
 ------Getting Started----------
-Clone the Repository to your local machine.
-create a new docker container
+- Clone the Repository to your local machine.
+- create a new docker container
   - run docker pull postgres
   - mkdir -p $HOME/docker/volumes/postgres
    - docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 \
@@ -19,11 +19,11 @@ Navigate to the Frontend folder the the project/app folder and run npm install a
 
 
 -----Using the App------
-Once on localhost:3000 you will see the full inventory from all inventory managers
+- Once on localhost:3000 you will see the full inventory from all inventory managers
 You will be able to select the item of your choice to view the full details
 If you wish to create an account select teh Create Account in the top right corner
-  -Enter first name, last name, username, and password then select submit
-If you wish to sign-in after your account is created or if you already have an account created then select the sign-in button
+  - Enter first name, last name, username, and password then select submit
+- If you wish to sign-in after your account is created or if you already have an account created then select the sign-in button
   - Enter your username and password
   - You will be navigated to your full inventory upon signing-in if you have no added items you will be informed there are no items
   - If you wish you can select Full inventory to view the inventory of all the inventory managers
