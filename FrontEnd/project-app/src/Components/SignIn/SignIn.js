@@ -3,7 +3,7 @@ import {useState} from 'react'
 import Cookies from 'js-cookie'
 
 
-export default function SignIn({setIsOpenModal3}){
+export default function SignIn({setIsOpenModal3, Navigate}){
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -22,6 +22,9 @@ export default function SignIn({setIsOpenModal3}){
       Cookies.set('token', data.token);
       Cookies.set('id', data.id)
       Cookies.set('username', data.username)
+    })
+    .then(() => {
+      Navigate('/user/items')
       setIsOpenModal3(false)
     })
   }

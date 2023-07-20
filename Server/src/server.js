@@ -37,6 +37,19 @@ app.get('/item/:id', async (req, res) => {
     res.status(500).json({message:"Failed to retrieve item."})
   }
 })
+//------------------------------------------------------------------------
+app.get('/users/items/:id', async (req, res) => {
+  const {id} = req.params
+  try{
+    const items = await knex('item')
+    .select("*")
+    .where('userid', id)
+
+    res.status(200).json(items)
+  }catch(err){
+    res.status(500).json({message:"Failed to retrieve items."})
+  }
+})
 
 //All Post Requests
 //-------------------------------------------------------------------------
@@ -91,6 +104,69 @@ app.post('/login', async (req, res) => {
     }
   }catch(err){
     res.status(500).json({message: "Failed to find user."})
+  }
+})
+
+//--------------------------------------------------------------------------------------------
+app.post('/item/add', async (req, res) => {
+  const {id, quantity, item_name, description} = req.body
+
+  const itemToAdd = {
+    userid: id,
+    item_name: item_name,
+    description: description,
+    quantity: quantity
+  }
+
+  try{
+    const addedItem = await knex('item')
+    .insert(itemToAdd)
+    .returning("*")
+    res.status(200).json(addedItem)
+  }catch(err){
+    res.status(500).json({message:"Failed to add item."})
+  }
+})
+//All Patch requests
+app.patch('/item/update/:id', async (req, res) => {
+  const {id} = req.params
+  const {item_name, description, quantity} = req.body
+  console.log(id)
+  try{
+    const itemToUpdate = {}
+
+    if(item_name) itemToUpdate.item_name = item_name;
+    if(description) itemToUpdate.description = description;
+    if(quantity) itemToUpdate.quantity = quantity;
+
+    const updatedItem = await knex('item')
+    .where({id})
+    .update(itemToUpdate)
+    .returning("*")
+
+    if(!updatedItem.length){
+      return res.status(404).json({message:"Item not found."})
+    }
+    res.status(200).json(updatedItem)
+  }catch(err){
+    console.log(err)
+    res.status(500).json({message: "Error updating item."})
+  }
+
+})
+
+//All delete requests
+app.delete('/item/remove/:id', async (req, res) => {
+  const {id} = req.params
+
+  try{
+    await knex('item')
+    .delete()
+    .where('id', id)
+
+    res.status(200).json({message: "Item Deleted"})
+  }catch(err){
+    res.status(200).json({message: "Failed to delete item."})
   }
 })
 

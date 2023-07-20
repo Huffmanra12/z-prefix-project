@@ -1,11 +1,13 @@
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import {useState, useEffect} from 'react'
-import Visitor from './Components/Visitor/Visitor.js';
+import AllItems from './Components/AllItems/AllItems.js';
 import LoadingScreen from './Components/Spinner/Spinner.js'
 import {Card, Button} from 'flowbite-react'
 import CreateAccount from './Components/CreateAccount/CreateAccount.js'
 import AccountCreated from './Components/CreateAccount/AccountCreated.js'
+import ManagerContent from './Components/ManagerContent/ManagerContent.js'
 import SignIn from './Components/SignIn/SignIn.js'
+import AddItem from './Components/AddItem/AddItem.js'
 import Cookies from 'js-cookie'
 
 
@@ -17,16 +19,16 @@ function App() {
   const [isOpenModal2, setIsOpenModal2] = useState(false)
   const [isOpenModal3, setIsOpenModal3] = useState(false)
   const [userValidated, setUserValidated] = useState(false)
+  const [reload, setReload] = useState(true)
   const [user, setUser] = useState('')
+  const Navigate = useNavigate()
 
   useEffect(() => {
     const token = Cookies.get('token');
     const userId = Cookies.get('id');
     const username = Cookies.get('username');
 
-    console.log(token)
     if(token && userId){
-      console.log(token, userId)
       setUserValidated(true)
       setUser(username)
     }
@@ -34,7 +36,7 @@ function App() {
     fetch('http://localhost:8080/items')
     .then(res => res.json())
     .then(data => {setItems(data); setLoading(false)})
-  }, [userValidated, isOpenModal3])
+  }, [userValidated, isOpenModal3, reload])
 
   if(loading || items.length < 1){
     return <LoadingScreen />
@@ -43,12 +45,12 @@ function App() {
     <div className="App">
       {isOpenModal && <CreateAccount setIsOpenModal={setIsOpenModal} setIsOpenModal2={setIsOpenModal2} />}
       {isOpenModal2 && <AccountCreated setIsOpenModal2={setIsOpenModal2}/>}
-      {isOpenModal3 && <SignIn setIsOpenModal3={setIsOpenModal3}/>}
+      {isOpenModal3 && <SignIn setIsOpenModal3={setIsOpenModal3} Navigate={Navigate}/>}
       {!userValidated && (
         <Card >
-        <div className="flex items-center justify-between border-2 border-red-500">
-          <h1 className="w-fit border-2 border-red-500">Z-Prefix-Project</h1>
-        <div className="flex  gap-10 w-fit border-2 border-red-500">
+        <div className="flex items-center justify-between">
+          <h1 className="w-fit">Z-Prefix-Project</h1>
+        <div className="flex  gap-10 w-fit">
           <Button onClick={() => setIsOpenModal3(true)}>Sign-In</Button>
           <Button onClick={() => setIsOpenModal(true)}>Create Account</Button>
         </div>
@@ -56,20 +58,29 @@ function App() {
       </Card>
       )}
       {userValidated && (
+        <>
         <Card >
-        <div className="flex items-center justify-between border-2 border-red-500">
-          <h1 className="w-fit border-2 border-red-500">Z-Prefix-Project</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="w-fit">Z-Prefix-Project</h1>
           <h1>Greetings {user}</h1>
-        <div className="flex  gap-10 w-fit border-2 border-red-500">
+        <div className="flex  gap-10 w-fit">
           <Button onClick={() => {Cookies.remove('token'); Cookies.remove('id'); Cookies.remove('username'); setUserValidated(false)}}>Sign-Out</Button>
         </div>
         </div>
       </Card>
+      <div className="flex mt-5 gap-4 justify-center">
+        <Button onClick={() => {setReload(!reload); Navigate('/user/items')}}>Added Inventory</Button>
+        <Button onClick={() => {setReload(!reload); Navigate('/')}}>Full Inventory</Button>
+        <Button onClick={() => {setReload(!reload); Navigate('/user/addItem')}}>+</Button>
+      </div>
+      </>
       )}
 
-      <div  className="border-2 border-red-500">
+      <div  className="mt-10">
       <Routes>
-        <Route path='/*' element={<Visitor items={items}/>}/>
+        <Route path='/*' element={<AllItems items={items} reload={reload} setReload={setReload}/>}/>
+        <Route path='/user/items/*' element={<ManagerContent reload={reload} setReload={setReload}/>}/>
+        <Route path='/user/addItem' element={<AddItem />}/>
       </Routes>
      </div>
     </div>
