@@ -1,10 +1,10 @@
-version: "3"
+version: "2.1"
 
 services:
   docker-db:
     image: postgres
     environment:
-      - DATABASE_HOST=127.0.0.1
+      - DATABASE_HOST=docker-db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=inventory_database
@@ -23,6 +23,8 @@ services:
     depends_on:
       docker-db:
         condition: service_healthy
+    environment:
+      - NODE_ENV=development
 
   api:
     build: Server/
