@@ -1,6 +1,11 @@
 # z-prefix-project
 
-------Getting Started----------
+------Getting Started with Docker Compose---------
+- Clone the Repository to your local machine.
+- Navigate to the folder with the docker-compose file
+- run docker-compose up
+
+------Getting Started without Docker Compose----------
 - Clone the Repository to your local machine.
 - create a new docker container
   - run docker pull postgres
@@ -12,10 +17,14 @@
 - run psql -U postgres
 - create database inventory_database
 
-Navigate to the z-prefix-project folder
-Navigate to the Database folder and run npm install, npx knex migrate:latest, and npx seed:run
-Navigate to the Server folder and run npm install then npm run
-Navigate to the Frontend folder then the project-app folder and run npm install and npm run
+- Navigate to the z-prefix-project folder
+- Navigate to the Database folder
+- modifiy the knexfile.js to have a host of 127.0.0.1
+- run npm install, npx knex migrate:latest, and npx seed:run
+- Navigate to the Server folder
+- modify the knexfile.js to have a host of 127.0.0.1
+- run npm install then npm run
+- Navigate to the Frontend folder then the project-app folder run - npm install and npm run
 
 
 -----Using the App------
