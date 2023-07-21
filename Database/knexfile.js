@@ -8,7 +8,7 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      host: '127.0.0.1',
+      host: 'docker-db',
       port: 5432,
       user: 'postgres',
       password: 'docker',
