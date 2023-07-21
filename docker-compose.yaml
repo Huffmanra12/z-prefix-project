@@ -12,11 +12,17 @@ services:
       - 5432:5432
     volumes:
       - $HOME/docker/volumes/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
 
   seed:
     build: Database/
     depends_on:
-      - docker-db
+      docker-db:
+        condition: service_healthy
 
   api:
     build: Server/

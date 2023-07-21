@@ -1,4 +1,4 @@
-# Use specific version of node
+
 FROM node:14-alpine
 
 WORKDIR /app
